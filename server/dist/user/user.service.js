@@ -18,16 +18,23 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("./entities/user.entity");
 const mongoose_2 = require("mongoose");
 const helpers_1 = require("../helpers/helpers");
+const argon2 = require("argon2");
+const jwt_1 = require("@nestjs/jwt");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, jwt) {
         this.userModel = userModel;
+        this.jwt = jwt;
     }
     async createUser(createUserDto) {
         const existingUser = await this.findUserByEmail(createUserDto.email);
         if (existingUser) {
             throw new common_1.ConflictException('User with this email already exists');
         }
-        const user = new this.userModel(createUserDto);
+        const hashedPassword = await argon2.hash(createUserDto.password);
+        const user = new this.userModel({
+            ...createUserDto,
+            password: hashedPassword,
+        });
         return user.save();
     }
     async findAllUsers() {
@@ -43,16 +50,28 @@ let UserService = class UserService {
     }
     async removeUser(id) {
         (0, helpers_1.validateObjectId)(id, 'User not found');
-        return this.userModel.findByIdAndDelete(id).exec();
+        const user = await this.userModel.findById(id).exec();
+        if (!user) {
+            throw new common_1.ConflictException('User not found');
+        }
+        const deletedUser = await this.userModel.findByIdAndDelete(id).exec();
+        if (!deletedUser) {
+            throw new Error('Failed to delete user');
+        }
+        return deletedUser;
     }
     async findUserByEmail(email) {
         return this.userModel.findOne({ email }).exec();
+    }
+    generateToken(email) {
+        return this.jwt.sign({ email });
     }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        jwt_1.JwtService])
 ], UserService);
 //# sourceMappingURL=user.service.js.map
