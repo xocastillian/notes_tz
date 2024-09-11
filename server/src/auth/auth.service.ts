@@ -6,36 +6,36 @@ import { UserService } from 'src/user/user.service'
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private userService: UserService,
-		private jwtService: JwtService
-	) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
-	async validateUser(email: string, password: string): Promise<User | null> {
-		const user = await this.userService.findUserByEmail(email)
-		const decryptPassword = await argon2.verify(user.password, password)
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.userService.findUserByEmail(email)
+    const decryptPassword = await argon2.verify(user.password, password)
 
-		if (user && decryptPassword) return user
-		throw new UnauthorizedException('User not found or invalid credentials')
-	}
+    if (user && decryptPassword) return user
+    throw new UnauthorizedException('User not found or invalid credentials')
+  }
 
-	async login(user: User) {
-		const { email, name } = user
-		return {
-			email,
-			name,
-			access_token: this.jwtService.sign({
-				email: user.email,
-				name: user.name,
-			}),
-		}
-	}
+  async login(user: User) {
+    const { email, name } = user
+    return {
+      email,
+      name,
+      access_token: this.jwtService.sign({
+        email: user.email,
+        name: user.name,
+      }),
+    }
+  }
 
-	async getUser(user: User) {
-		const { email, name } = user
-		return {
-			email,
-			name,
-		}
-	}
+  async getUser(user: User) {
+    const { email, name } = user
+    return {
+      email,
+      name,
+    }
+  }
 }

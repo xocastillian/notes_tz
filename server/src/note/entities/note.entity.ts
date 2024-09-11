@@ -6,11 +6,11 @@ export type NoteDocument = Document & Note
 
 @Schema()
 export class Note {
-	@Prop({ required: true })
-	content: string
+  @Prop({ required: true })
+  content: string
 
-	@Prop({ type: Types.ObjectId, ref: User.name, required: true })
-	user: Types.ObjectId
+  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
+  user: Types.ObjectId
 }
 
 export const NoteSchema = SchemaFactory.createForClass(Note)
