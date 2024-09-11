@@ -1,9 +1,10 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
+import { ConflictException, Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { InjectModel } from '@nestjs/mongoose'
 import { User } from './entities/user.entity'
 import mongoose, { Model } from 'mongoose'
+import { validateObjectId } from 'src/helpers/helpers'
 
 @Injectable()
 export class UserService {
@@ -21,34 +22,26 @@ export class UserService {
 	}
 
 	async findAllUsers() {
-		return this.userModel.find().exec()
+		return this.userModel.find().populate('notes').exec()
 	}
 
 	async findOneUser(id: string) {
-		this.validateObjectId(id)
-
-		return this.userModel.findById(id).exec()
+		validateObjectId(id, 'User not found')
+		return this.userModel.findById(id).populate('notes').exec()
 	}
 
 	async updateUser(id: string, updateUserDto: UpdateUserDto) {
-		this.validateObjectId(id)
-
+		validateObjectId(id, 'User not found')
 		return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec()
 	}
 
 	async removeUser(id: string) {
-		this.validateObjectId(id)
+		validateObjectId(id, 'User not found')
 		return this.userModel.findByIdAndDelete(id).exec()
 	}
 
 	/// HELPERS
 	private async findUserByEmail(email: string): Promise<User | null> {
 		return this.userModel.findOne({ email }).exec()
-	}
-
-	private validateObjectId(id: string): void {
-		if (!mongoose.Types.ObjectId.isValid(id)) {
-			throw new NotFoundException('User not found')
-		}
 	}
 }

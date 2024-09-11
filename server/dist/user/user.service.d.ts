@@ -21,5 +21,4 @@ export declare class UserService {
         _id: mongoose.Types.ObjectId;
     }>;
     private findUserByEmail;
-    private validateObjectId;
 }

@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("./entities/user.entity");
 const mongoose_2 = require("mongoose");
+const helpers_1 = require("../helpers/helpers");
 let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -30,27 +31,22 @@ let UserService = class UserService {
         return user.save();
     }
     async findAllUsers() {
-        return this.userModel.find().exec();
+        return this.userModel.find().populate('notes').exec();
     }
     async findOneUser(id) {
-        this.validateObjectId(id);
-        return this.userModel.findById(id).exec();
+        (0, helpers_1.validateObjectId)(id, 'User not found');
+        return this.userModel.findById(id).populate('notes').exec();
     }
     async updateUser(id, updateUserDto) {
-        this.validateObjectId(id);
+        (0, helpers_1.validateObjectId)(id, 'User not found');
         return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
     }
     async removeUser(id) {
-        this.validateObjectId(id);
+        (0, helpers_1.validateObjectId)(id, 'User not found');
         return this.userModel.findByIdAndDelete(id).exec();
     }
     async findUserByEmail(email) {
         return this.userModel.findOne({ email }).exec();
-    }
-    validateObjectId(id) {
-        if (!mongoose_2.default.Types.ObjectId.isValid(id)) {
-            throw new common_1.NotFoundException('User not found');
-        }
     }
 };
 exports.UserService = UserService;

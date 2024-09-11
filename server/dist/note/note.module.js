@@ -6,17 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.NoteModule = void 0;
 const common_1 = require("@nestjs/common");
+const note_service_1 = require("./note.service");
+const note_controller_1 = require("./note.controller");
 const mongoose_1 = require("@nestjs/mongoose");
-const user_module_1 = require("./user/user.module");
-const note_module_1 = require("./note/note.module");
-let AppModule = class AppModule {
+const note_entity_1 = require("./entities/note.entity");
+let NoteModule = class NoteModule {
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
+exports.NoteModule = NoteModule;
+exports.NoteModule = NoteModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://localhost/notes_tz'), user_module_1.UserModule, note_module_1.NoteModule],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: note_entity_1.Note.name, schema: note_entity_1.NoteSchema }])],
+        controllers: [note_controller_1.NoteController],
+        providers: [note_service_1.NoteService],
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], NoteModule);
+//# sourceMappingURL=note.module.js.map

@@ -9,30 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.User = void 0;
+exports.NoteSchema = exports.Note = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let User = class User {
+const user_entity_1 = require("../../user/entities/user.entity");
+let Note = class Note {
 };
-exports.User = User;
+exports.Note = Note;
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
+], Note.prototype, "content", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ unique: true, required: true }),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.Types.ObjectId, ref: 'Note' }] }),
-    __metadata("design:type", Array)
-], User.prototype, "notes", void 0);
-exports.User = User = __decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: user_entity_1.User.name, required: true }),
+    __metadata("design:type", mongoose_2.Types.ObjectId)
+], Note.prototype, "user", void 0);
+exports.Note = Note = __decorate([
     (0, mongoose_1.Schema)()
-], User);
-exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
-//# sourceMappingURL=user.entity.js.map
+], Note);
+exports.NoteSchema = mongoose_1.SchemaFactory.createForClass(Note);
+//# sourceMappingURL=note.entity.js.map
