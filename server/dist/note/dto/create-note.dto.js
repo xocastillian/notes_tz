@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateNoteDto = void 0;
 const class_validator_1 = require("class-validator");
-const class_transformer_1 = require("class-transformer");
 class CreateNoteDto {
 }
 exports.CreateNoteDto = CreateNoteDto;
@@ -20,10 +19,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateNoteDto.prototype, "content", void 0);
-__decorate([
-    (0, class_validator_1.IsMongoId)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_transformer_1.Type)(() => String),
-    __metadata("design:type", String)
-], CreateNoteDto.prototype, "user", void 0);
 //# sourceMappingURL=create-note.dto.js.map
