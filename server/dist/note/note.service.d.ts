@@ -1,22 +1,24 @@
 import { Note } from './entities/note.entity';
 import { Model, Types } from 'mongoose';
 import { CreateNoteDto } from './dto/create-note.dto';
+import { User } from 'src/user/entities/user.entity';
 export declare class NoteService {
     private noteModel;
-    constructor(noteModel: Model<Note>);
-    createNote(createNoteDto: CreateNoteDto): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
+    private userModel;
+    constructor(noteModel: Model<Note>, userModel: Model<User>);
+    createNote(createNoteDto: CreateNoteDto, user: User): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
         _id: Types.ObjectId;
     }>;
-    findAllNotes(): Promise<(import("mongoose").Document<unknown, {}, Note> & Note & {
+    findAllNotes(user: User): Promise<(import("mongoose").Document<unknown, {}, Note> & Note & {
         _id: Types.ObjectId;
     })[]>;
-    findOneNote(id: string): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
+    findOneNote(id: string, user: User): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
         _id: Types.ObjectId;
     }>;
-    updateNote(id: string, updateNoteDto: Partial<CreateNoteDto>): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
+    updateNote(id: string, updateNoteDto: Partial<CreateNoteDto>, user: User): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
         _id: Types.ObjectId;
     }>;
-    removeNote(id: string): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
+    removeNote(id: string, user: User): Promise<import("mongoose").Document<unknown, {}, Note> & Note & {
         _id: Types.ObjectId;
     }>;
 }

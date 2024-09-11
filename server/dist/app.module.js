@@ -11,12 +11,14 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_module_1 = require("./user/user.module");
 const note_module_1 = require("./note/note.module");
+const auth_module_1 = require("./auth/auth.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://localhost/notes_tz'), user_module_1.UserModule, note_module_1.NoteModule],
+        imports: [mongoose_1.MongooseModule.forRoot('mongodb://localhost/notes_tz'), user_module_1.UserModule, note_module_1.NoteModule, auth_module_1.AuthModule, config_1.ConfigModule.forRoot({ isGlobal: true })],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

@@ -5,9 +5,4 @@ export class CreateNoteDto {
 	@IsString()
 	@IsNotEmpty()
 	content: string
-
-	@IsMongoId()
-	@IsNotEmpty()
-	@Type(() => String)
-	user: string
 }

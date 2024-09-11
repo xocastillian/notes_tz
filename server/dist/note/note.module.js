@@ -12,12 +12,13 @@ const note_service_1 = require("./note.service");
 const note_controller_1 = require("./note.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const note_entity_1 = require("./entities/note.entity");
+const user_module_1 = require("../user/user.module");
 let NoteModule = class NoteModule {
 };
 exports.NoteModule = NoteModule;
 exports.NoteModule = NoteModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: note_entity_1.Note.name, schema: note_entity_1.NoteSchema }])],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: note_entity_1.Note.name, schema: note_entity_1.NoteSchema }]), user_module_1.UserModule],
         controllers: [note_controller_1.NoteController],
         providers: [note_service_1.NoteService],
     })
