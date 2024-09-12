@@ -7,11 +7,15 @@ export declare class AuthService {
     constructor(userService: UserService, jwtService: JwtService);
     validateUser(email: string, password: string): Promise<User | null>;
     login(user: User): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        notes: import("../note/entities/note.entity").Note[];
         email: string;
         name: string;
         access_token: string;
     }>;
     getUser(user: User): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        notes: import("../note/entities/note.entity").Note[];
         email: string;
         name: string;
         access_token: string;

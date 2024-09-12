@@ -8,6 +8,7 @@ export interface IUser {
 }
 
 export interface INote {
+	_id: string
 	content: string
 }
 

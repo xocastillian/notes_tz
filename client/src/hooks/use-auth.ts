@@ -33,7 +33,6 @@ const useAuth = () => {
 
 			toast({
 				title: 'You are logged in',
-				variant: 'default',
 				duration: 3000,
 			})
 		} catch (error: Error | any) {
@@ -68,7 +67,6 @@ const useAuth = () => {
 
 			toast({
 				title: 'You are registered',
-				variant: 'default',
 				duration: 3000,
 			})
 		} catch (error: Error | any) {

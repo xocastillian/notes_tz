@@ -27,8 +27,10 @@ let AuthService = class AuthService {
         throw new common_1.UnauthorizedException('User not found or invalid credentials');
     }
     async login(user) {
-        const { email, name } = user;
+        const { email, name, notes, _id } = user;
         return {
+            _id,
+            notes,
             email,
             name,
             access_token: this.jwtService.sign({
@@ -38,8 +40,10 @@ let AuthService = class AuthService {
         };
     }
     async getUser(user) {
-        const { email, name } = user;
+        const { email, name, notes, _id } = user;
         return {
+            _id,
+            notes,
             email,
             name,
             access_token: this.jwtService.sign({

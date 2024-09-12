@@ -20,8 +20,10 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const { email, name } = user
+    const { email, name, notes, _id } = user
     return {
+      _id,
+      notes,
       email,
       name,
       access_token: this.jwtService.sign({
@@ -32,8 +34,10 @@ export class AuthService {
   }
 
   async getUser(user: User) {
-    const { email, name } = user
+    const { email, name, notes, _id } = user
     return {
+      _id,
+      notes,
       email,
       name,
       access_token: this.jwtService.sign({

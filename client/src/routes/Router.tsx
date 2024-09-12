@@ -1,3 +1,4 @@
+import ProtectedRoutes from '@/components/ProtectedRoutes'
 import Auth from '@/pages/Auth'
 import Home from '@/pages/Home'
 import Layout from '@/pages/Layout'
@@ -10,7 +11,11 @@ export const Router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <Home />,
+				element: (
+					<ProtectedRoutes>
+						<Home />
+					</ProtectedRoutes>
+				),
 			},
 			{
 				path: 'auth',
