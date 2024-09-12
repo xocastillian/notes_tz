@@ -9,6 +9,8 @@ export declare class JwtStrategy extends JwtStrategy_base {
     validate(payload: JwtPayload): Promise<{
         _id: import("mongoose").Types.ObjectId;
         email: string;
+        name: string;
+        notes: import("../../note/entities/note.entity").Note[];
     }>;
 }
 export {};

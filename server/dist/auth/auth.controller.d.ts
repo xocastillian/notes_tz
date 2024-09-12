@@ -10,5 +10,6 @@ export declare class AuthController {
     getProfile(req: any): Promise<{
         email: string;
         name: string;
+        access_token: string;
     }>;
 }

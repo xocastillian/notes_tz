@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { formSchemaLogin } from './schema'
-import { ILoginForm } from './types'
+import { ILogin } from '@/types/'
 
 interface Props {
-	onSubmit: (values: z.infer<typeof formSchemaLogin>, form: ILoginForm) => void
+	onSubmit: (values: z.infer<typeof formSchemaLogin>, form: ILogin) => void
 }
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
@@ -21,7 +21,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
 	})
 
 	const handleSubmitForm = (values: z.infer<typeof formSchemaLogin>) => {
-		const loginFormData: ILoginForm = {
+		const loginFormData: ILogin = {
 			email: values.email,
 			password: values.password,
 		}

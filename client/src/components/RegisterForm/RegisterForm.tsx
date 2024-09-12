@@ -5,10 +5,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { formSchemaRegister } from './schema'
-import { IRegisterForm } from './types'
+import { IRegister } from '@/types/'
 
 interface Props {
-	onSubmit: (values: z.infer<typeof formSchemaRegister>, form: IRegisterForm) => void
+	onSubmit: (values: z.infer<typeof formSchemaRegister>, form: IRegister) => void
 }
 
 const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
@@ -22,7 +22,7 @@ const RegisterForm: React.FC<Props> = ({ onSubmit }) => {
 	})
 
 	const handleSubmitForm = (values: z.infer<typeof formSchemaRegister>) => {
-		const registerFormData: IRegisterForm = {
+		const registerFormData: IRegister = {
 			name: values.name,
 			email: values.email,
 			password: values.password,

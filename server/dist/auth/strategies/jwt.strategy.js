@@ -26,7 +26,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
     }
     async validate(payload) {
         const user = await this.userService.findUserByEmail(payload.email);
-        return { _id: user._id, email: user.email };
+        return { _id: user._id, email: user.email, name: user.name, notes: user.notes };
     }
 };
 exports.JwtStrategy = JwtStrategy;
