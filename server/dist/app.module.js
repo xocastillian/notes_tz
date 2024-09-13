@@ -19,11 +19,11 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost/notes_tz'),
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            mongoose_1.MongooseModule.forRoot(process.env.DATABASE_URL),
             user_module_1.UserModule,
             note_module_1.NoteModule,
             auth_module_1.AuthModule,
-            config_1.ConfigModule.forRoot({ isGlobal: true }),
         ],
     })
 ], AppModule);
