@@ -24,11 +24,19 @@ const Note: React.FC<Props> = ({ content, onEdit, onDelete }) => {
 
 	return (
 		<>
-			<div onClick={onEdit} className='bg-white rounded-lg shadow-md p-4 mb-4 flex items-center cursor-pointer hover:bg-slate-50'>
+			<div
+				onClick={onEdit}
+				className='bg-white rounded-lg shadow-md p-4 mb-4 flex flex-col cursor-pointer hover:bg-slate-50'
+				style={{
+					overflow: 'auto',
+					maxHeight: '500px',
+					whiteSpace: 'pre-wrap',
+				}}
+			>
 				<div className='flex-1'>
 					<p className='text-gray-800'>{content}</p>
 				</div>
-				<div className='flex justify-end'>
+				<div className='flex justify-end mt-2'>
 					<button onClick={handleDeleteClick} className='bg-red-500 text-white rounded px-3 py-1 hover:bg-red-600'>
 						<Trash size={20} />
 					</button>

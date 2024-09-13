@@ -7,15 +7,19 @@ const useNotes = () => {
 	const [notes, setNotes] = useState<INote[]>([])
 	const [editNoteId, setEditNoteId] = useState<string>('')
 	const [newNoteContent, setNewNoteContent] = useState<string>('')
+	const [loading, setLoading] = useState(false)
 	const { toast } = useToast()
 
 	const fetchNotes = async () => {
+		setLoading(true)
 		try {
 			const data = await note.getNotes()
 			setNotes(data)
 		} catch (error: Error | any) {
 			const err = error.response?.data.message || error.message
 			toast({ title: err, variant: 'destructive' })
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -24,6 +28,7 @@ const useNotes = () => {
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleSave = async (onClose: () => void) => {
+		setLoading(true)
 		try {
 			if (editNoteId) {
 				await note.updateNote(editNoteId, newNoteContent)
@@ -42,6 +47,8 @@ const useNotes = () => {
 		} catch (error: Error | any) {
 			const err = error.response?.data.message || error.message
 			toast({ title: err, variant: 'destructive' })
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -50,12 +57,15 @@ const useNotes = () => {
 	}
 
 	const handleDelete = async (id: string) => {
+		setLoading(true)
 		try {
 			await note.deleteNote(id)
 			setNotes(prevNotes => prevNotes.filter(note => note._id !== id))
 		} catch (error: Error | any) {
 			const err = error.response?.data.message || error.message
 			toast({ title: err, variant: 'destructive' })
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -72,6 +82,7 @@ const useNotes = () => {
 		handleChange,
 		handleDelete,
 		handleEdit,
+		loading,
 	}
 }
 

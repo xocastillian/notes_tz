@@ -5,13 +5,16 @@ import { auth } from '@/services/auth'
 import { login } from '@/entities/user/slice'
 import { IUser, ILogin, IRegister } from '@/types'
 import { setToken } from '@/helpers/localStorage'
+import { useState } from 'react'
 
 const useAuth = () => {
 	const navigate = useNavigate()
 	const { toast } = useToast()
 	const dispatch = useAppDispatch()
+	const [loading, setLoading] = useState(false)
 
 	const handleLoginSubmit = async (values: ILogin) => {
+		setLoading(true)
 		try {
 			const response = await auth.login(values)
 
@@ -42,10 +45,13 @@ const useAuth = () => {
 				title: err,
 				variant: 'destructive',
 			})
+		} finally {
+			setLoading(false)
 		}
 	}
 
 	const handleRegisterSubmit = async (values: IRegister) => {
+		setLoading(true)
 		try {
 			const response = await auth.register(values)
 
@@ -76,12 +82,15 @@ const useAuth = () => {
 				title: err,
 				variant: 'destructive',
 			})
+		} finally {
+			setLoading(false)
 		}
 	}
 
 	return {
 		handleLoginSubmit,
 		handleRegisterSubmit,
+		loading,
 	}
 }
 
