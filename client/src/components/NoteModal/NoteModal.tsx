@@ -22,7 +22,16 @@ const NoteModal: React.FC<NoteModalProps> = ({ isOpen, onClose, onSave, content,
 				<ModalCloseButton />
 				<ModalBody pb={6}>
 					<FormControl>
-						<Textarea ref={initialRef} placeholder='Write here' value={content} onChange={onChange} focusBorderColor='black' />
+						<Textarea
+							ref={initialRef}
+							placeholder='Write here'
+							value={content}
+							onChange={onChange}
+							focusBorderColor='black'
+							resize='none'
+							minHeight='150px'
+							style={{ overflowY: 'auto' }}
+						/>
 					</FormControl>
 				</ModalBody>
 
