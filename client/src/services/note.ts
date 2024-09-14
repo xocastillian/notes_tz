@@ -7,10 +7,8 @@ export const note = {
 		return data
 	},
 
-	createNote: async (content: string): Promise<INote> => {
-		const { data } = await axiosInstance.post<INote>('/note', { content })
-		console.log(data)
-
+	createNote: async (content: string, title?: string): Promise<INote> => {
+		const { data } = await axiosInstance.post<INote>('/note', { content, title })
 		return data
 	},
 
@@ -18,8 +16,8 @@ export const note = {
 		await axiosInstance.delete(`/note/${id}`)
 	},
 
-	updateNote: async (id: string, content: string): Promise<INote> => {
-		const { data } = await axiosInstance.patch<INote>(`/note/${id}`, { content })
+	updateNote: async (id: string, content: string, title?: string): Promise<INote> => {
+		const { data } = await axiosInstance.patch<INote>(`/note/${id}`, { content, title })
 		return data
 	},
 }
