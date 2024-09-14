@@ -9,6 +9,8 @@ export const note = {
 
 	createNote: async (content: string): Promise<INote> => {
 		const { data } = await axiosInstance.post<INote>('/note', { content })
+		console.log(data)
+
 		return data
 	},
 
