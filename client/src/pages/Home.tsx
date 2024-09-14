@@ -8,7 +8,7 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner'
 
 const Home: React.FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
-	const { notes, newNoteContent, editNoteId, handleSave, handleChange, handleDelete, handleEdit, loading } = useNotes()
+	const { notes, newNoteContent, newNoteTitle, handleSave, handleContentChange, handleTitleChange, handleDelete, handleEdit, loading } = useNotes()
 
 	const handleSaveAndClose = async () => {
 		await handleSave(onClose)
@@ -20,30 +20,39 @@ const Home: React.FC = () => {
 				<LoadingSpinner />
 			) : (
 				<div className='pt-12'>
-					<>
-						<NotesList
-							notes={notes}
-							onDelete={handleDelete}
-							onEdit={(id, content) => {
-								handleEdit(id, content)
+					<NotesList
+						notes={notes}
+						onDelete={handleDelete}
+						onEdit={id => {
+							const note = notes.find(n => n._id === id)
+							if (note) {
+								handleEdit(id, note.title || '', note.content)
+								onOpen()
+							}
+						}}
+					/>
+					<div className='mx-auto mt-4'>
+						<Button
+							onClick={() => {
+								handleEdit('', '', '')
 								onOpen()
 							}}
-						/>
-						<div className='mx-auto mt-4'>
-							<Button
-								onClick={() => {
-									handleEdit(editNoteId, '')
-									onOpen()
-								}}
-							>
-								Add Note
-							</Button>
-						</div>
-					</>
+						>
+							Add Note
+						</Button>
+					</div>
 				</div>
 			)}
 
-			<NoteModal isOpen={isOpen} onClose={onClose} onSave={handleSaveAndClose} content={newNoteContent} onChange={handleChange} />
+			<NoteModal
+				isOpen={isOpen}
+				onClose={onClose}
+				onSave={handleSaveAndClose}
+				content={newNoteContent}
+				title={newNoteTitle}
+				onContentChange={handleContentChange}
+				onTitleChange={handleTitleChange}
+			/>
 		</>
 	)
 }
