@@ -3,6 +3,8 @@ export type NoteDocument = Document & Note;
 export declare class Note {
     content: string;
     user: Types.ObjectId;
+    title?: string;
+    createdAt: Date;
 }
 export declare const NoteSchema: import("mongoose").Schema<Note, import("mongoose").Model<Note, any, any, any, Document<unknown, any, Note> & Note & {
     _id: Types.ObjectId;

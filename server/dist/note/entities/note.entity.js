@@ -24,8 +24,16 @@ __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: user_entity_1.User.name, required: true }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Note.prototype, "user", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Note.prototype, "title", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: Date.now }),
+    __metadata("design:type", Date)
+], Note.prototype, "createdAt", void 0);
 exports.Note = Note = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)({ timestamps: true })
 ], Note);
 exports.NoteSchema = mongoose_1.SchemaFactory.createForClass(Note);
 //# sourceMappingURL=note.entity.js.map
